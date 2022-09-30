@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const fs = require('fs');
 const parseTorrent = require('parse-torrent');
-
 const WebTorrent = require('webtorrent-hybrid');
 // const createATorrent = require('create-torrent');
 const {
@@ -130,8 +129,13 @@ const pauseTorrent = (req, res, next) => {
 
 const createTorrent = (req, res, next) => {
   try {
-    // To do
-    // const { file } = req.body;
+    console.log(req.files.file)
+    client.seed(req.files.file.data, {name: req.files.file.name} , (t) => {
+      const date = new Date();
+      console.log(t.magnetURI)
+      updateTorrentOnJSON(t.name, t.magnetURI, t.length, t.path, false, date, 0, 1);
+      returnJSON(req, res, next, 200, 'ok', 'Torrent Seeding');
+    });
   } catch (error) {
     returnJSON(req, res, next, 400, 'error', 'Unexpected error');
   }

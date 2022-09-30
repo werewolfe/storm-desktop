@@ -33,3 +33,21 @@ export const get = async (url) => {
     return (err);
   }
 };
+
+export const postFile = async (url, file) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    console.log(formData)
+    const requestOptions = {
+      method: 'POST',
+      body: formData
+    };
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    return err;
+  }
+};

@@ -1,6 +1,7 @@
 // Server
 const express = require('express');
 const cors = require('cors');
+const fileUpload = require("express-fileupload");
 // Open link in new tab
 const { shell } = require('electron');
 // eslint-disable-next-line no-underscore-dangle
@@ -31,6 +32,8 @@ const port = 8000;
 
 const server = (io, dialog) => {
   app.use(express.json());
+
+  app.use(fileUpload());
 
   app.use(cors());
 

@@ -10,7 +10,7 @@ import {
   MainContentContainer,
   ContentContainer,
   AddTorrentButtonContainer,
-  // CreateTorrentButton,
+  CreateTorrentButton,
   ButtonLabel,
   // SettingsIcon,
   DownloadIcon,
@@ -25,6 +25,7 @@ import {
   ClipboardIcon,
 } from './Toolbar.styles';
 import AddTorrentModal from '../../components/AddTorrentModal/AddTorrentModal.component';
+import AddSeedModal from '../../components/AddSeedModal/AddSeedModal.component';
 import RemoveTorrentModal from '../../components/RemoveTorrentModal/RemoveTorrentModal.component';
 
 export const Toolbar = ({ setActiveFilter }) => {
@@ -33,6 +34,8 @@ export const Toolbar = ({ setActiveFilter }) => {
   const { data: { torrentSelected, socket }, actions: { clearTorrentSelection } } = stormContext;
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const [isSeedDialogOpen, setIsSeedDialogOpen] = useState(false);
 
   const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
 
@@ -146,9 +149,9 @@ export const Toolbar = ({ setActiveFilter }) => {
               <AddTorrentButtonContainer onClick={() => setIsDialogOpen(true)}>
                 <ButtonLabel>+ Add new torrent</ButtonLabel>
               </AddTorrentButtonContainer>
-              {/* <CreateTorrentButton>
+              <CreateTorrentButton onClick={() => setIsSeedDialogOpen(true)}>
                 <ButtonLabel>Create torrent</ButtonLabel>
-              </CreateTorrentButton> */}
+              </CreateTorrentButton>
             </ContentContainer>
             <ContentContainer>
               <SearchBox setActiveFilter={setActiveFilter} />
@@ -158,6 +161,10 @@ export const Toolbar = ({ setActiveFilter }) => {
           {
             isDialogOpen
               && <AddTorrentModal setIsDialogOpen={setIsDialogOpen} />
+          }
+          {
+            isSeedDialogOpen
+              && <AddSeedModal setIsSeedDialogOpen={setIsSeedDialogOpen} />
           }
         </>
       )}
